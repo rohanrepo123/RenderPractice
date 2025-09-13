@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website with API</title>
+</head>
+<body>
+  <h2>Send Message to API</h2>
+  <input type="text" id="textInput" placeholder="Enter your name">
+  <button onclick="sendToAPI()">Submit</button>
+
+  <p id="responseArea"></p>
+
+  <script>
+    function sendToAPI() {
+      const text = document.getElementById("textInput").value;
+
+      fetch("http://127.0.0.1:5000/process", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: text })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("responseArea").innerText = data.message;
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  </script>
+</body>
+</html>
